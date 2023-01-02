@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "server": "nodemon --inspect server.js 3030"
   },
   "keywords": [],
   "author": "",
@@ -14,13 +15,16 @@
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "bcrypt": "^5.1.0",
+    "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
+    "file-uri-to-path": "^2.0.0",
     "handlebars": "^4.7.7",
+    "log4js": "^6.7.1",
     "minimist": "^1.2.7",
     "mongoose": "^6.7.2",
     "nodemon": "^2.0.20",

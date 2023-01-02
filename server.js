@@ -7,6 +7,16 @@ const passport = require('passport')
 const parseArgs = require('minimist')
 const args = parseArgs(process.argv.slice(2)) // para que tome a partir del tercer parametro x consola
 
+// dotenv
+require('dotenv').config()
+
+// compression
+const compression = require('compression')
+
+// logger
+const logger = require('./src/loggers/Log4jsLogger')
+const loggerMiddleware = require('./src/middlewares/loggerMiddleware')
+
 const MongoStore = require('connect-mongo')
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
@@ -23,6 +33,7 @@ const controllerMensajes = new ContenedorMensajes()
 
 
 const app = express();
+app.use(compression())
 
 app.use(session({ 
     store: MongoStore.create({
@@ -44,6 +55,8 @@ const io = new Socket(httpServer)
 
 /* -------  App  -------- */
 
+app.use(loggerMiddleware)
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -59,6 +72,10 @@ app.set('view engine', 'handlebars')
 app.use('/api/productos-test', routerProductos) // --> esta ruta trae 5 productos random de faker js. Despues se fetchea en el index.js y se renderizan los productos. IMPORTANTE: SI NO PONEMOS ESTO ARRIBA DEL APP.USE(router) SE ROMPE LA RUTA.
 
 app.use(router) // poner esto siempre abajo del app.use(passport) y el static
+
+app.all("*", (req, res) => {
+    res.status(404).json({"error": "ruta no existente"})
+  });
 
 io.on('connection', async socket => {
 
@@ -82,7 +99,19 @@ io.on('connection', async socket => {
 
 /* -------  Server  -------- */
 
-const PORT = args._[0] || 8080;
+const PORT = args._[0] || process.env.PORT; // Lee el puerto por consola o usa el 8080 por default (ejemplo: node server.js 8081)
 
-const server = httpServer.listen(PORT, () => console.log(`Servidor http escuchando en el puerto ${server.address().port}`));
-server.on('error', error => console.log(`Error en servidor ${error}`));
+// const server = httpServer.listen(PORT, () => console.log(`Servidor http escuchando en el puerto ${server.address().port}`));
+// server.on('error', error => console.log(`Error en servidor ${error}`));
+
+// app._router.stack.forEach(function (r) {
+//     if (r.route && r.route.path) {
+//       console.log(r.route.path)
+//     }
+//   });
+
+const server = app.listen(PORT, () => {
+    logger.info(`🚀 Server started at http://localhost:${PORT}`)
+    })
+    
+server.on('error', (err) => logger.error(err));
