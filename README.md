@@ -40,3 +40,19 @@ Luego utilizaremos Autocannon en línea de comandos, emulando 100 conexiones con
 Realizar un informe en formato pdf sobre las pruebas realizadas incluyendo los resultados de todos los test (texto e imágenes). 
 
 👉 Al final incluir la conclusión obtenida a partir del análisis de los datos.
+
+
+## RESOLUCIÓN
+
+Al iniciar el server, se logea como INFO del logger el puerto en el que está corriendo el servidor.
+> En caso de haber algún error o warn, se imprimirán en sus respectivos archivos 'warn.log' o 'error.log' (en la ruta raíz del proyecto)
+
+
+>> ARTILLERY
+
+$$$$
+
+>> AUTOCANNON
+
+>> npm start (o '0x server.js') // Observar package.json con los respectivos seteos en los scripts.
+>> node benchmark.js (o 'npm run benchmark')
