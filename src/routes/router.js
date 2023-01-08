@@ -40,37 +40,13 @@ router.get('/info', (req, res) => {
 	});
 });
 
-//  -------- Para la segunda función:
-// const randomNumbersGeneratorFork = fork('./src/controllers/randoms.js')
-
-const forked = fork('./src/controllers/randoms.js');
-
 
 // Api randoms
-router.get('/api/randoms', (req, res) => {
-	let { cantidad } = req.query;
-	let obj = {};
-	cantidad
-		? forked.send({ cantidad, obj })
-		: forked.send({ cantidad: 500000000, obj });
-	forked.on('message', msg => res.json(msg));
-
-	// FUNCIONAN AMBAS FUNCIONES PERO SOLO CON EL PRIMER REQUEST, SI HACEMOS OTRO SE CRASHEA.
-
-
-	// ---- Para la segunda función: ----
-	// let cant = req.query.cant || 5000;
-
-	// randomNumbersGeneratorFork.send(cant);
-
-	// randomNumbersGeneratorFork.on('message', (resultado) => {
-	//     res.json(resultado)
-	// })
-
-	// console.log('Lista generada')
-
-
-});
+router.get("/api/randoms", (req, res) => {
+	const randomNumbersGeneratorFork = fork("./src/controllers/randoms.js");
+	randomNumbersGeneratorFork.send(req.query.cantidad || 500000000);
+	randomNumbersGeneratorFork.on("message", (msg) => res.json(msg));
+  });
 
 
 // Fail route
@@ -78,3 +54,20 @@ router.get('*', failRoute)
 
 module.exports = router
 
+
+
+
+
+// PARA FUNCIÓN ALTERNATIVA (VER ALTERNATIVA EN CONTROLLERS/RANDOMS.JS)
+
+  // const randomNumbersGeneratorFork = fork('./src/controllers/randoms.js');
+
+  // let cant = req.query.cant || 5000;
+
+  // randomNumbersGeneratorFork.send(cant);
+
+  // randomNumbersGeneratorFork.on('message', (resultado) => {
+  //     res.json(resultado)
+  // })
+
+  // console.log('Lista generada')
