@@ -110,8 +110,9 @@ const PORT = args._[0] || process.env.PORT; // Lee el puerto por consola o usa e
 //     }
 //   });
 
-const server = app.listen(PORT, () => {
+const server = httpServer.listen(PORT, () => {
     logger.info(`🚀 Server started at http://localhost:${PORT}`)
     })
     
 server.on('error', (err) => logger.error(err));
+
