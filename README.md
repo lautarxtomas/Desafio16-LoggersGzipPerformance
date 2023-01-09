@@ -49,11 +49,10 @@ También podemos ver loggeadas como INFO todos los tipos de peticiones que se ha
 > En caso de haber algún error o warn, se imprimirán en sus respectivos archivos 'warn.log' o 'error.log' (en la ruta raíz del proyecto)
 
 
-
 >> AUTOCANNON - ARTILLERY
 
-$ npm start (o '0x server.js') // Observar package.json con los respectivos seteos en los scripts.
-$ node benchmark.js (o 'npm run benchmark')
+$ nodemon --inspect server.js 5050
+$ node benchmark.js (o 'npm run benchmark') --> este archivo hace los test directamente en la ruta localhost:5050/info
 
 >> APARECE LO SIGUIENTE EN CONSOLA: 
 Running tests
@@ -80,5 +79,7 @@ Req/Bytes counts sampled once per second.
 2k requests in 20.14s, 1.65 MB read
 
 // ---------------
+
+$ npm start (o '0x server.js') // Observar package.json con los respectivos seteos en los scripts.
 
 >> Si iniciamos el server con npm start (0x server.js) se inicia el profiling y nos genera una carpeta con el flamegraph y archivos ISOLATE con información más detallada.
