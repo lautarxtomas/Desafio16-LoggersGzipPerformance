@@ -17,6 +17,7 @@ const compression = require('compression')
 const logger = require('./src/loggers/Log4jsLogger')
 const loggerMiddleware = require('./src/middlewares/loggerMiddleware')
 
+// PARA SESSION (sin esto no funca el login)
 const MongoStore = require('connect-mongo')
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
@@ -35,6 +36,7 @@ const controllerMensajes = new ContenedorMensajes()
 const app = express();
 app.use(compression())
 
+// para session (login)
 app.use(session({ 
     store: MongoStore.create({
         mongoUrl: 'mongodb+srv://lautarxtomas:lautaro123@cluster0.xpais9l.mongodb.net/ecommerce?retryWrites=true&w=majority' || 'mongodb://localhost/ecommerce',
@@ -101,8 +103,6 @@ io.on('connection', async socket => {
 
 const PORT = args._[0] || process.env.PORT; // Lee el puerto por consola o usa el 8080 por default (ejemplo: node server.js 8081)
 
-// const server = httpServer.listen(PORT, () => console.log(`Servidor http escuchando en el puerto ${server.address().port}`));
-// server.on('error', error => console.log(`Error en servidor ${error}`));
 
 // app._router.stack.forEach(function (r) {
 //     if (r.route && r.route.path) {

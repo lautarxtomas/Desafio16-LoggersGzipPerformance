@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
+    "0x": "^5.4.1",
     "autocannon": "^7.10.0",
     "bcrypt": "^5.1.0",
     "compression": "^1.7.4",

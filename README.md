@@ -45,14 +45,40 @@ Realizar un informe en formato pdf sobre las pruebas realizadas incluyendo los r
 ## RESOLUCIÓN
 
 Al iniciar el server, se logea como INFO del logger el puerto en el que está corriendo el servidor.
+También podemos ver loggeadas como INFO todos los tipos de peticiones que se hagan a cualquier ruta.
 > En caso de haber algún error o warn, se imprimirán en sus respectivos archivos 'warn.log' o 'error.log' (en la ruta raíz del proyecto)
 
 
->> ARTILLERY
 
-$$$$
+>> AUTOCANNON - ARTILLERY
 
->> AUTOCANNON
+$ npm start (o '0x server.js') // Observar package.json con los respectivos seteos en los scripts.
+$ node benchmark.js (o 'npm run benchmark')
 
->> npm start (o '0x server.js') // Observar package.json con los respectivos seteos en los scripts.
->> node benchmark.js (o 'npm run benchmark')
+>> APARECE LO SIGUIENTE EN CONSOLA: 
+Running tests
+Running 20s test @ http://localhost:5050/info (ESTA URL SALE DE LA QUE LE PASAMOS A LA FUNCIÓN "RUN" EN EL ARCHIVO BENCHMARK.JS)
+100 connections
+
+
+┌─────────┬────────┬────────┬─────────┬─────────┬───────────┬───────────┬─────────┐
+│ Stat    │ 2.5%   │ 50%    │ 97.5%   │ 99%     │ Avg       │ Stdev     │ Max     │
+├─────────┼────────┼────────┼─────────┼─────────┼───────────┼───────────┼─────────┤
+│ Latency │ 125 ms │ 971 ms │ 1200 ms │ 1901 ms │ 902.48 ms │ 281.05 ms │ 2884 ms │
+└─────────┴────────┴────────┴─────────┴─────────┴───────────┴───────────┴─────────┘
+┌───────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ Stat      │ 1%      │ 2.5%    │ 50%     │ 97.5%   │ Avg     │ Stdev   │ Min     │
+├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│ Req/Sec   │ 54      │ 54      │ 110     │ 119     │ 106.6   │ 13.44   │ 54      │
+├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│ Bytes/Sec │ 41.8 kB │ 41.8 kB │ 85.2 kB │ 92.2 kB │ 82.6 kB │ 10.4 kB │ 41.8 kB │
+└───────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+
+Req/Bytes counts sampled once per second.
+# of samples: 20
+
+2k requests in 20.14s, 1.65 MB read
+
+// ---------------
+
+>> Si iniciamos el server con npm start (0x server.js) se inicia el profiling y nos genera una carpeta con el flamegraph y archivos ISOLATE con información más detallada.

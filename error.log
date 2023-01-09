@@ -15,3 +15,20 @@
   address: '::',
   port: 8080
 }
+[2023-01-09T12:15:15.517] [ERROR] default - Error: listen EACCES: permission denied server
+    at Server.setupListenHandle [as _listen2] (node:net:1716:21)
+    at listenInCluster (node:net:1781:12)
+    at Server.listen (node:net:1880:5)
+    at Object.<anonymous> (C:\Users\Usuario\Desktop\Coder\Backend\Projects\Desafio16-LoggersGzipPerformance\server.js:113:27)
+    at Module._compile (node:internal/modules/cjs/loader:1218:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1272:10)
+    at Module.load (node:internal/modules/cjs/loader:1081:32)
+    at Module._load (node:internal/modules/cjs/loader:922:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:23:47 {
+  code: 'EACCES',
+  errno: -4092,
+  syscall: 'listen',
+  address: 'server',
+  port: -1
+}
